@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./page.module.css";
 import HeroProductConsole from "./HeroProductConsole";
 
@@ -156,9 +157,6 @@ const faqs = [
     "Commercial strategy, market intelligence, research, investment, and operating teams that need to compare movement across markets and brief stakeholders quickly.",
   ],
 ];
-
-const mapUrl =
-  "https://www.google.com/maps/place/Spaces+Atrium+on+5th+Sandton/@-26.1076647,28.0525014,17z/data=!3m1!4b1!4m6!3m5!1s0x1e957336c9b81e51:0xd00ca3e98a953ca3!8m2!3d-26.1076647!4d28.0525014!16s%2Fg%2F11bccmytfm?entry=ttu&g_ep=EgoyMDI2MDQyNi4wIKXMDSoASAFQAw%3D%3D";
 
 const footerColumns = [
   {
@@ -505,12 +503,15 @@ export default function Home() {
 function BrandLogo() {
   return (
     <a className={styles.logo} href="#top" aria-label="DataIntelligency home">
-      <span className={styles.logoMark} aria-hidden="true">
-        <span className={styles.logoNode} />
-        <span className={styles.logoOrbit} />
-        <span className={styles.logoColumn} />
-        <span className={styles.logoSignal} />
-      </span>
+      <Image
+        className={styles.logoMark}
+        src="/logo.svg"
+        alt=""
+        width={36}
+        height={36}
+        unoptimized
+        aria-hidden="true"
+      />
       <span className={styles.wordmark}>
         <span>Data</span>
         <strong>Intelligency</strong>

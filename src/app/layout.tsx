@@ -30,6 +30,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/logo.svg",
+    shortcut: "/logo.svg",
+  },
   openGraph: {
     title: "DataIntelligency | Cross-Market Intelligence Workspace",
     description:
@@ -52,11 +56,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
-    >
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
