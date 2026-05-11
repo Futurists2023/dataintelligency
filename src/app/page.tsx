@@ -1,6 +1,5 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import HeroProductConsole from "./HeroProductConsole";
 
 const metrics = [
   ["Multi-market", "USA, UK, and South Africa coverage"],
@@ -13,6 +12,19 @@ const heroProof = [
   ["3 markets", "USA, UK, and South Africa"],
   ["19 source types", "Registry, tender, regional, and sector signals"],
   ["Source-backed", "Confidence, timing, and provenance in every view"],
+];
+
+const heroSignalStrip = [
+  ["USA", "Industrial services activity rising", "+24% source density"],
+  ["UK", "Registry and tender movement matched", "88 confidence"],
+  ["South Africa", "Energy services procurement shift", "Review queue"],
+];
+
+const visualToneClasses = [
+  styles.visualCobalt,
+  styles.visualForest,
+  styles.visualCopper,
+  styles.visualSignal,
 ];
 
 const modules = [
@@ -77,6 +89,42 @@ const markets = [
   ["USA", "Broad coverage", "Federal, state, local"],
   ["UK", "Registry + tender", "Registry, tender, regional"],
   ["South Africa", "Sector signals", "CIPC, tender, sector"],
+];
+
+const marketImageMoments = [
+  {
+    market: "USA",
+    title: "Logistics corridors",
+    copy: "Intermodal freight density, regional movement, and operating-footprint signals.",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Intermodal_%2848250806881%29.jpg/1280px-Intermodal_%2848250806881%29.jpg",
+    alt: "Aerial view of an intermodal rail terminal with rows of shipping containers in Bedford Park, Illinois.",
+    credit: "Sam LaRussa / CC BY 2.0",
+    source:
+      "https://commons.wikimedia.org/wiki/File:Intermodal_(48250806881).jpg",
+  },
+  {
+    market: "UK",
+    title: "Commercial districts",
+    copy: "Registry movement, tender signals, and regional business activity in one view.",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Canary_Wharf_London_2025.png/1280px-Canary_Wharf_London_2025.png",
+    alt: "Canary Wharf financial district and surrounding residential area in London.",
+    credit: "Dai Photo / CC0",
+    source:
+      "https://commons.wikimedia.org/wiki/File:Canary_Wharf_London_2025.png",
+  },
+  {
+    market: "South Africa",
+    title: "Urban market activity",
+    copy: "Sector activity, procurement movement, and location-level indicators for review.",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Cityscape%2C_Johannesburg%2C_Gauteng%2C_South_Africa.jpg/1280px-Cityscape%2C_Johannesburg%2C_Gauteng%2C_South_Africa.jpg",
+    alt: "Johannesburg skyline at night with illuminated towers and city lights.",
+    credit: "South African Tourism / CC BY 2.0",
+    source:
+      "https://commons.wikimedia.org/wiki/File:Cityscape,_Johannesburg,_Gauteng,_South_Africa.jpg",
+  },
 ];
 
 const coverage = [
@@ -267,7 +315,21 @@ export default function Home() {
           </div>
 
           <div className={styles.heroProduct}>
-            <HeroProductConsole />
+            <div className={styles.heroProductStage}>
+              <HeroMarketMap />
+            </div>
+            <div
+              className={styles.heroSignalStrip}
+              aria-label="Live market signal examples"
+            >
+              {heroSignalStrip.map(([market, signal, meta]) => (
+                <div key={market}>
+                  <span>{market}</span>
+                  <strong>{signal}</strong>
+                  <small>{meta}</small>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -292,12 +354,13 @@ export default function Home() {
           </p>
         </div>
         <div className={styles.moduleGrid}>
-          {modules.map((module) => (
+          {modules.map((module, index) => (
             <article className={styles.moduleCard} key={module.name}>
               <div>
                 <span>{module.stat}</span>
                 <h3>{module.name}</h3>
               </div>
+              <CardSignalVisual tone={visualToneClasses[index]} />
               <p>{module.copy}</p>
             </article>
           ))}
@@ -313,6 +376,27 @@ export default function Home() {
             without reducing the product to lists, contacts, or prospecting
             language.
           </p>
+        </div>
+        <div
+          className={styles.marketImageGrid}
+          aria-label="Market coverage image examples"
+        >
+          {marketImageMoments.map((moment) => (
+            <article className={styles.marketImageCard} key={moment.market}>
+              <Image
+                src={moment.image}
+                alt={moment.alt}
+                fill
+                sizes="(max-width: 700px) 100vw, (max-width: 980px) 50vw, 33vw"
+              />
+              <div className={styles.marketImageOverlay}>
+                <span>{moment.market}</span>
+                <h3>{moment.title}</h3>
+                <p>{moment.copy}</p>
+                <a href={moment.source}>{moment.credit}</a>
+              </div>
+            </article>
+          ))}
         </div>
         <div className={styles.marketGrid}>
           {markets.map(([name, volume, sources]) => (
@@ -344,8 +428,12 @@ export default function Home() {
           <h2>Built around the decisions teams already make.</h2>
         </div>
         <div className={styles.useCaseGrid}>
-          {useCases.map(([title, copy]) => (
+          {useCases.map(([title, copy], index) => (
             <article className={styles.useCase} key={title}>
+              <CardMiniHeader
+                index={index}
+                label={["Plan", "Focus", "Monitor", "Detect"][index]}
+              />
               <h3>{title}</h3>
               <p>{copy}</p>
             </article>
@@ -364,8 +452,9 @@ export default function Home() {
           </p>
         </div>
         <div className={styles.audienceGrid}>
-          {audiences.map(([title, copy]) => (
+          {audiences.map(([title, copy], index) => (
             <article className={styles.audienceCard} key={title}>
+              <CardSourceBadges index={index} />
               <h3>{title}</h3>
               <p>{copy}</p>
             </article>
@@ -416,7 +505,10 @@ export default function Home() {
         <div className={styles.workflowGrid}>
           {workflow.map(([title, copy], index) => (
             <article className={styles.workflowStep} key={title}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
+              <div className={styles.workflowStepTop}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <CardStepGlyph index={index} />
+              </div>
               <h3>{title}</h3>
               <p>{copy}</p>
             </article>
@@ -497,6 +589,161 @@ export default function Home() {
         </div>
       </footer>
     </main>
+  );
+}
+
+function CardSignalVisual({ tone }: { tone: string }) {
+  return (
+    <div
+      className={`${styles.cardSignalVisual} ${tone}`}
+      aria-hidden="true"
+    >
+      <div className={styles.signalDots}>
+        <i />
+        <i />
+        <i />
+      </div>
+      <div className={styles.signalBars}>
+        <i />
+        <i />
+        <i />
+      </div>
+    </div>
+  );
+}
+
+function CardMiniHeader({ index, label }: { index: number; label: string }) {
+  return (
+    <div
+      className={`${styles.cardMiniHeader} ${
+        visualToneClasses[index % visualToneClasses.length]
+      }`}
+    >
+      <span>{label}</span>
+      <div aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </div>
+    </div>
+  );
+}
+
+function CardSourceBadges({ index }: { index: number }) {
+  const badges = [
+    ["Registry", "Tender"],
+    ["Signals", "Briefs"],
+    ["Sources", "Review"],
+    ["Queue", "Route"],
+  ][index];
+
+  return (
+    <div
+      className={`${styles.cardSourceBadges} ${
+        visualToneClasses[index % visualToneClasses.length]
+      }`}
+    >
+      {badges.map((badge) => (
+        <span key={badge}>{badge}</span>
+      ))}
+    </div>
+  );
+}
+
+function CardStepGlyph({ index }: { index: number }) {
+  return (
+    <div
+      className={`${styles.cardStepGlyph} ${
+        visualToneClasses[index % visualToneClasses.length]
+      }`}
+      aria-hidden="true"
+    >
+      <i />
+      <i />
+      <i />
+      <i />
+    </div>
+  );
+}
+
+function HeroMarketMap() {
+  return (
+    <section
+      className={styles.heroMapShell}
+      aria-label="Market signal map for USA, UK, and South Africa"
+    >
+      <div className={styles.mapHeader}>
+        <div>
+          <span>Market signal layer</span>
+          <strong>USA / UK / South Africa</strong>
+        </div>
+        <small>Live coverage</small>
+      </div>
+
+      <svg
+        className={styles.marketMapSvg}
+        viewBox="0 0 820 460"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path
+          className={styles.signalArc}
+          d="M142 174 C300 74 504 85 648 154"
+        />
+        <path
+          className={styles.signalArc}
+          d="M648 154 C640 250 608 330 554 378"
+        />
+        <path
+          className={styles.signalArcSecondary}
+          d="M142 174 C260 318 410 390 554 378"
+        />
+        <path
+          className={styles.mapLandmass}
+          d="M56 122 C92 78 162 78 201 112 C241 148 224 205 168 221 C116 236 58 201 48 158 C45 143 47 132 56 122Z"
+        />
+        <path
+          className={styles.mapLandmass}
+          d="M590 94 C640 72 706 92 735 140 C764 188 736 238 678 244 C616 251 571 215 567 162 C565 133 574 107 590 94Z"
+        />
+        <path
+          className={styles.mapLandmass}
+          d="M470 317 C516 277 586 286 621 337 C655 387 625 436 560 441 C499 446 452 407 450 362 C449 342 456 328 470 317Z"
+        />
+      </svg>
+
+      <div className={`${styles.mapNode} ${styles.usaNode}`}>
+        <span>USA</span>
+        <strong>Expansion signal</strong>
+        <small>Logistics / Texas + Florida</small>
+      </div>
+      <div className={`${styles.mapNode} ${styles.ukNode}`}>
+        <span>UK</span>
+        <strong>Registry movement</strong>
+        <small>Industrial services / Manchester</small>
+      </div>
+      <div className={`${styles.mapNode} ${styles.saNode}`}>
+        <span>South Africa</span>
+        <strong>Procurement shift</strong>
+        <small>Energy services / Gauteng</small>
+      </div>
+
+      <div className={styles.mapTelemetry}>
+        <span>Cross-market activity</span>
+        <strong>Signals converging across 3 markets</strong>
+        <div>
+          <small>Source density</small>
+          <b>High</b>
+        </div>
+      </div>
+
+      <div className={styles.mapLegend} aria-label="Signal layer legend">
+        <span>Entity changes</span>
+        <span>Procurement movement</span>
+        <span>Sector momentum</span>
+      </div>
+    </section>
   );
 }
 

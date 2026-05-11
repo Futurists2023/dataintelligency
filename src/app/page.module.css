@@ -300,6 +300,335 @@
   min-width: 0;
 }
 
+.heroProductStage {
+  position: relative;
+  display: grid;
+  isolation: isolate;
+}
+
+.heroMapShell {
+  position: relative;
+  min-height: 590px;
+  overflow: hidden;
+  border: 1px solid rgba(15, 31, 27, 0.12);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 18% 32%, rgba(36, 75, 122, 0.16), transparent 26%),
+    radial-gradient(circle at 76% 28%, rgba(1, 86, 74, 0.18), transparent 28%),
+    radial-gradient(circle at 66% 82%, rgba(168, 85, 42, 0.17), transparent 30%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(238, 245, 236, 0.86));
+  box-shadow:
+    0 30px 80px rgba(15, 31, 27, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.mapHeader {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  left: 18px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid rgba(15, 31, 27, 0.1);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 18px 42px rgba(15, 31, 27, 0.08);
+  padding: 12px 14px;
+  backdrop-filter: blur(16px);
+}
+
+.mapHeader div {
+  display: grid;
+  gap: 4px;
+}
+
+.mapHeader span,
+.mapHeader small,
+.mapLegend span {
+  font-family: var(--font-geist-mono);
+  font-size: 0.7rem;
+}
+
+.mapHeader span {
+  color: var(--muted);
+}
+
+.mapHeader strong {
+  font-size: 1rem;
+}
+
+.mapHeader small {
+  border: 1px solid rgba(1, 86, 74, 0.16);
+  border-radius: 999px;
+  padding: 6px 8px;
+  color: var(--forest);
+  white-space: nowrap;
+}
+
+.heroMapShell::before,
+.heroMapShell::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.heroMapShell::before {
+  background:
+    linear-gradient(90deg, rgba(1, 86, 74, 0.07) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(1, 86, 74, 0.06) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: linear-gradient(125deg, #000 0%, transparent 78%);
+}
+
+.heroMapShell::after {
+  background:
+    linear-gradient(180deg, transparent 48%, rgba(247, 248, 244, 0.94) 100%),
+    radial-gradient(circle at 50% 42%, transparent 0%, rgba(255, 255, 255, 0.56) 76%);
+}
+
+.marketMapSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.signalArc,
+.signalArcSecondary,
+.mapLandmass {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.signalArc,
+.signalArcSecondary {
+  stroke-linecap: round;
+  stroke-width: 2.2;
+}
+
+.signalArc {
+  stroke: rgba(1, 86, 74, 0.32);
+  stroke-dasharray: 8 10;
+  animation: arcFlow 5200ms linear infinite;
+}
+
+.signalArcSecondary {
+  stroke: rgba(168, 85, 42, 0.28);
+  stroke-dasharray: 4 11;
+  animation: arcFlow 6200ms linear infinite reverse;
+}
+
+.mapLandmass {
+  fill: rgba(255, 255, 255, 0.45);
+  stroke: rgba(15, 31, 27, 0.08);
+  stroke-width: 1;
+}
+
+.mapNode {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  gap: 5px;
+  min-width: 168px;
+  border: 1px solid rgba(15, 31, 27, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 18px 40px rgba(15, 31, 27, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.74);
+  padding: 12px;
+  backdrop-filter: blur(16px);
+}
+
+.mapNode::before {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--forest);
+  box-shadow: 0 0 0 7px rgba(1, 86, 74, 0.1);
+  content: "";
+}
+
+.mapNode span,
+.mapNode small,
+.mapTelemetry span,
+.mapTelemetry small,
+.heroSignalStrip span,
+.heroSignalStrip small {
+  font-family: var(--font-geist-mono);
+  font-size: 0.7rem;
+}
+
+.mapNode span {
+  color: var(--forest);
+  font-weight: 760;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mapNode strong {
+  max-width: 150px;
+  font-size: 0.9rem;
+  line-height: 1.24;
+}
+
+.mapNode small,
+.mapTelemetry span,
+.mapTelemetry small,
+.heroSignalStrip span,
+.heroSignalStrip small {
+  color: var(--muted);
+}
+
+.usaNode {
+  top: 142px;
+  left: 7%;
+  border-color: rgba(36, 75, 122, 0.2);
+}
+
+.usaNode::before {
+  background: var(--cobalt);
+  box-shadow: 0 0 0 7px rgba(36, 75, 122, 0.1);
+}
+
+.ukNode {
+  top: 148px;
+  right: 4%;
+}
+
+.saNode {
+  right: 19%;
+  bottom: 96px;
+  border-color: rgba(168, 85, 42, 0.22);
+}
+
+.saNode::before {
+  background: var(--copper);
+  box-shadow: 0 0 0 7px rgba(168, 85, 42, 0.11);
+}
+
+.mapTelemetry {
+  position: absolute;
+  bottom: 92px;
+  left: 24px;
+  z-index: 3;
+  display: grid;
+  gap: 9px;
+  width: min(265px, 42%);
+  border: 1px solid rgba(15, 31, 27, 0.1);
+  border-radius: 14px;
+  background: rgba(16, 27, 24, 0.9);
+  box-shadow: 0 18px 42px rgba(15, 31, 27, 0.18);
+  padding: 14px;
+  color: #f8f5ec;
+}
+
+.mapTelemetry strong {
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.mapTelemetry div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid rgba(248, 245, 236, 0.12);
+  padding-top: 9px;
+}
+
+.mapTelemetry b {
+  color: var(--signal);
+  font-family: var(--font-geist-mono);
+  font-size: 0.78rem;
+  font-weight: 620;
+}
+
+.mapLegend {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid rgba(15, 31, 27, 0.1);
+  border-radius: 12px;
+  background: rgba(15, 31, 27, 0.1);
+}
+
+.mapLegend span {
+  position: relative;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 12px 12px 12px 26px;
+  color: var(--muted);
+}
+
+.mapLegend span::before {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--forest);
+  content: "";
+  transform: translateY(-50%);
+}
+
+.mapLegend span:nth-child(1)::before {
+  background: var(--cobalt);
+}
+
+.mapLegend span:nth-child(3)::before {
+  background: var(--copper);
+}
+
+.heroSignalStrip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid rgba(15, 31, 27, 0.1);
+  border-radius: 16px;
+  background: rgba(15, 31, 27, 0.1);
+  box-shadow: 0 18px 46px rgba(15, 31, 27, 0.06);
+}
+
+.heroSignalStrip div {
+  display: grid;
+  gap: 7px;
+  min-height: 126px;
+  background:
+    linear-gradient(135deg, rgba(1, 86, 74, 0.07), transparent 58%),
+    rgba(255, 255, 255, 0.78);
+  padding: 16px;
+}
+
+.heroSignalStrip div:nth-child(1) span {
+  color: var(--cobalt);
+}
+
+.heroSignalStrip div:nth-child(3) span {
+  color: var(--copper);
+}
+
+.heroSignalStrip strong {
+  color: var(--ink);
+  font-size: 0.94rem;
+  line-height: 1.32;
+}
+
 .primaryButton,
 .secondaryButton {
   display: inline-flex;
@@ -947,6 +1276,210 @@
   transform: translateY(-2px);
 }
 
+.visualCobalt {
+  --visual: var(--cobalt);
+  --visual-rgb: 36 75 122;
+}
+
+.visualForest {
+  --visual: var(--forest);
+  --visual-rgb: 6 81 67;
+}
+
+.visualCopper {
+  --visual: var(--copper);
+  --visual-rgb: 168 85 42;
+}
+
+.visualSignal {
+  --visual: #718816;
+  --visual-rgb: 113 136 22;
+}
+
+.cardSignalVisual {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 16px;
+  align-items: center;
+  margin: 28px 0;
+  border: 1px solid rgb(var(--visual-rgb) / 0.14);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgb(var(--visual-rgb) / 0.12), transparent 68%),
+    rgba(255, 255, 255, 0.56);
+  padding: 14px;
+}
+
+.signalDots {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 16px);
+  gap: 6px;
+  align-content: center;
+  justify-content: center;
+  min-height: 54px;
+  border-radius: 12px;
+  background: rgb(var(--visual-rgb) / 0.1);
+}
+
+.signalDots::after {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgb(var(--visual-rgb) / 0.32);
+  border-radius: 999px;
+  content: "";
+}
+
+.signalDots i,
+.cardMiniHeader i,
+.cardStepGlyph i {
+  display: block;
+  border-radius: 999px;
+  background: var(--visual);
+}
+
+.signalDots i {
+  width: 8px;
+  height: 8px;
+  opacity: 0.86;
+}
+
+.signalDots i:nth-child(2) {
+  opacity: 0.42;
+}
+
+.signalDots i:nth-child(3) {
+  opacity: 0.62;
+}
+
+.signalBars {
+  display: grid;
+  gap: 8px;
+}
+
+.signalBars i {
+  display: block;
+  height: 8px;
+  border-radius: 999px;
+  background: rgb(var(--visual-rgb) / 0.18);
+  overflow: hidden;
+}
+
+.signalBars i::before {
+  display: block;
+  width: 76%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--visual);
+  content: "";
+}
+
+.signalBars i:nth-child(2)::before {
+  width: 54%;
+}
+
+.signalBars i:nth-child(3)::before {
+  width: 88%;
+}
+
+.cardMiniHeader,
+.cardSourceBadges,
+.workflowStepTop {
+  display: flex;
+  align-items: center;
+}
+
+.cardMiniHeader {
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.cardMiniHeader span,
+.cardSourceBadges span {
+  border: 1px solid rgb(var(--visual-rgb) / 0.18);
+  border-radius: 999px;
+  background: rgb(var(--visual-rgb) / 0.08);
+  padding: 7px 10px;
+  color: var(--visual);
+  font-family: var(--font-geist-mono);
+  font-size: 0.72rem;
+  font-weight: 760;
+}
+
+.cardMiniHeader div {
+  display: flex;
+  align-items: end;
+  gap: 5px;
+  height: 28px;
+}
+
+.cardMiniHeader i {
+  width: 6px;
+}
+
+.cardMiniHeader i:nth-child(1) {
+  height: 12px;
+  opacity: 0.42;
+}
+
+.cardMiniHeader i:nth-child(2) {
+  height: 20px;
+  opacity: 0.7;
+}
+
+.cardMiniHeader i:nth-child(3) {
+  height: 28px;
+}
+
+.cardSourceBadges {
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 34px;
+}
+
+.workflowStepTop {
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.cardStepGlyph {
+  display: grid;
+  grid-template-columns: repeat(4, 7px);
+  gap: 5px;
+  align-items: end;
+  height: 34px;
+  border: 1px solid rgb(var(--visual-rgb) / 0.14);
+  border-radius: 11px;
+  background: rgb(var(--visual-rgb) / 0.08);
+  padding: 8px 9px;
+}
+
+.cardStepGlyph i {
+  width: 7px;
+}
+
+.cardStepGlyph i:nth-child(1) {
+  height: 8px;
+  opacity: 0.36;
+}
+
+.cardStepGlyph i:nth-child(2) {
+  height: 13px;
+  opacity: 0.56;
+}
+
+.cardStepGlyph i:nth-child(3) {
+  height: 18px;
+  opacity: 0.76;
+}
+
+.cardStepGlyph i:nth-child(4) {
+  height: 23px;
+}
+
 .moduleCard {
   display: grid;
   align-content: space-between;
@@ -977,6 +1510,98 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
   margin-top: 42px;
+}
+
+.marketImageGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr 1fr;
+  gap: 14px;
+  margin-top: 42px;
+}
+
+.marketImageCard {
+  position: relative;
+  min-height: 380px;
+  overflow: hidden;
+  border: 1px solid rgba(15, 31, 27, 0.12);
+  border-radius: 18px;
+  background: var(--deep-forest);
+  box-shadow: 0 22px 60px rgba(15, 31, 27, 0.12);
+}
+
+.marketImageCard:nth-child(2) {
+  transform: translateY(30px);
+}
+
+.marketImageCard img {
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.04);
+  transform: scale(1.02);
+}
+
+.marketImageCard::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(10, 23, 20, 0.08) 0%, rgba(10, 23, 20, 0.74) 100%),
+    linear-gradient(40deg, rgba(1, 86, 74, 0.28), transparent 54%);
+  content: "";
+}
+
+.marketImageOverlay {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+  z-index: 2;
+  display: grid;
+  gap: 9px;
+  color: #fffdf7;
+}
+
+.marketImageOverlay span,
+.marketImageOverlay a {
+  width: max-content;
+  max-width: 100%;
+  font-family: var(--font-geist-mono);
+  font-size: 0.7rem;
+}
+
+.marketImageOverlay span {
+  border: 1px solid rgba(255, 253, 247, 0.26);
+  border-radius: 999px;
+  background: rgba(255, 253, 247, 0.12);
+  padding: 7px 10px;
+  color: #fffdf7;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+}
+
+.marketImageOverlay h3 {
+  font-size: clamp(1.45rem, 2.4vw, 2.15rem);
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.marketImageOverlay p {
+  max-width: 320px;
+  color: rgba(255, 253, 247, 0.78);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.marketImageOverlay a {
+  color: rgba(255, 253, 247, 0.6);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 253, 247, 0.26);
+  text-underline-offset: 3px;
+}
+
+.marketImageOverlay a:hover {
+  color: #fffdf7;
 }
 
 .marketCard {
@@ -1050,11 +1675,12 @@
 }
 
 .audienceCard h3 {
+  margin-top: 30px;
   font-size: 1.12rem;
 }
 
 .audienceCard p {
-  margin-top: 48px;
+  margin-top: 30px;
 }
 
 .methodologyPanel {
@@ -1149,14 +1775,14 @@
   padding: 22px;
 }
 
-.workflowStep span {
+.workflowStepTop > span {
   color: var(--forest);
   font-family: var(--font-geist-mono);
   font-size: 0.8rem;
 }
 
 .workflowStep h3 {
-  margin-top: 70px;
+  margin-top: 60px;
 }
 
 .finalCta {
@@ -1372,6 +1998,11 @@
     justify-content: center;
   }
 
+  .heroProductStage {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
   .analystBody,
   .productBand,
   .methodologyPanel,
@@ -1386,6 +2017,7 @@
 
   .moduleGrid,
   .marketGrid,
+  .marketImageGrid,
   .useCaseGrid,
   .audienceGrid,
   .workflowGrid,
@@ -1395,6 +2027,10 @@
 
   .productCopy {
     position: static;
+  }
+
+  .marketImageCard:nth-child(2) {
+    transform: none;
   }
 }
 
@@ -1444,6 +2080,59 @@
     min-height: 0;
   }
 
+  .heroProductStage {
+    gap: 14px;
+  }
+
+  .heroMapShell {
+    min-height: 640px;
+  }
+
+  .mapHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mapNode {
+    left: 16px;
+    right: 16px;
+    width: auto;
+    min-width: 0;
+  }
+
+  .usaNode {
+    top: 124px;
+  }
+
+  .ukNode {
+    top: 246px;
+  }
+
+  .saNode {
+    top: 368px;
+    bottom: auto;
+  }
+
+  .mapTelemetry {
+    right: 16px;
+    bottom: 78px;
+    left: 16px;
+    width: auto;
+  }
+
+  .mapLegend {
+    grid-template-columns: 1fr;
+  }
+
+  .heroSignalStrip {
+    grid-template-columns: 1fr;
+  }
+
+  .heroSignalStrip div {
+    min-height: 0;
+  }
+
   .heroProof span {
     margin-top: 8px;
   }
@@ -1463,6 +2152,7 @@
   .metricBand,
   .moduleGrid,
   .marketGrid,
+  .marketImageGrid,
   .useCaseGrid,
   .audienceGrid,
   .workflowGrid,
@@ -1538,6 +2228,8 @@
   }
 
   .liveBadge::before,
+  .signalArc,
+  .signalArcSecondary,
   .pipelineSteps .activePipeline::after,
   .activeSignal {
     animation: none;
@@ -1565,6 +2257,16 @@
 
   100% {
     box-shadow: 0 0 0 0 rgba(185, 220, 74, 0);
+  }
+}
+
+@keyframes arcFlow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: -72;
   }
 }
 
